@@ -1,12 +1,30 @@
-import React from 'react';
-import '../App.css'
+import React, { useState } from 'react';
 
+function TodoItem({ task, index, deleteTask, toggleTask, editTask }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [newText, setNewText] = useState(task.text);
 
-function TodoItem({ task, index, deleteTask, toggleTask }) {
+  const handleEdit = () => {
+    if (isEditing && newText !== task.text) {
+      editTask(index, newText);
+    }
+    setIsEditing(!isEditing);
+  };
+
   return (
-    <li style={{ textDecoration: task.completed ? 'line-through' : '' }}>
-      <span onClick={() => toggleTask(index)}>{task.text}</span>
-      <button onClick={() => deleteTask(index)}>Eliminar</button>
+    <li className={task.completed ? 'completed' : ''}>
+      {isEditing ? (
+        <input
+          type="text"
+          value={newText}
+          onChange={(e) => setNewText(e.target.value)}
+          onBlur={handleEdit}
+        />
+      ) : (
+        <span onClick={() => toggleTask(index)}>{task.text}</span>
+      )}
+      <button onClick={() => deleteTask(index)}>Delete</button>
+      <button onClick={handleEdit}>{isEditing ? 'Save' : 'Edit'}</button>
     </li>
   );
 }

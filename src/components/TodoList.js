@@ -1,9 +1,7 @@
 import React from 'react';
 import TodoItem from './TodoItem';
-import '../App.css'
 
-
-function TodoList({ tasks, deleteTask, toggleTask }) {
+function TodoList({ tasks, deleteTask, toggleTask, editTask }) {
   return (
     <ul>
       {tasks.map((task, index) => (
@@ -13,6 +11,7 @@ function TodoList({ tasks, deleteTask, toggleTask }) {
           index={index}
           deleteTask={deleteTask}
           toggleTask={toggleTask}
+          editTask={editTask}
         />
       ))}
     </ul>
